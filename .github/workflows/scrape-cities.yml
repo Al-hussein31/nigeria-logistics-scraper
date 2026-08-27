@@ -1,0 +1,151 @@
+name: Scrape Nigerian Cities - Parallel
+
+on:
+  workflow_dispatch:
+    inputs:
+      cities:
+        description: 'Comma-separated cities to scrape (empty = all)'
+        required: false
+        default: ''
+      cell_size_km:
+        description: 'Grid cell size in km'
+        required: false
+        default: '1.0'
+      max_cells_per_job:
+        description: 'Max cells per job (batch size)'
+        required: false
+        default: '50'
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Generate city matrix
+        id: set-matrix
+        run: |
+          CITIES=(
+            "lagos:6.35,3.15,6.75,3.65"
+            "port_harcourt:4.65,6.95,5.05,7.25"
+            "kano:11.90,8.40,12.15,8.70"
+            "ibadan:7.25,3.80,7.55,4.10"
+            "kaduna:10.45,7.30,10.70,7.60"
+            "enugu:6.35,7.40,6.60,7.65"
+            "benin_city:6.25,5.50,6.50,5.75"
+            "aba:5.05,7.30,5.20,7.50"
+            "onitsha:6.05,6.70,6.25,6.95"
+            "owerri:5.35,6.95,5.55,7.15"
+            "warri:5.45,5.65,5.65,5.85"
+            "calabar:4.85,8.25,5.05,8.45"
+            "jos:9.80,8.80,10.00,9.00"
+            "maiduguri:11.70,13.00,11.95,13.25"
+            "sokoto:12.95,5.10,13.20,5.35"
+            "zaria:11.00,7.60,11.20,7.85"
+            "ilorin:8.40,4.45,8.60,4.70"
+            "abeokuta:7.05,3.25,7.25,3.50"
+            "akure:7.15,5.10,7.35,5.30"
+            "uyo:4.95,7.85,5.15,8.05"
+          )
+          
+          if [[ -n "${{ github.event.inputs.cities }}" ]]; then
+            FILTER="${{ github.event.inputs.cities }}"
+            FILTERED=()
+            for c in "${CITIES[@]}"; do
+              key="${c%%:*}"
+              if [[ "$FILTER" == *"$key"* ]]; then
+                FILTERED+=("$c")
+              fi
+            done
+            CITIES=("${FILTERED[@]}")
+          fi
+          
+          MATRIX='{"include":['
+          for c in "${CITIES[@]}"; do
+            key="${c%%:*}"
+            bbox="${c#*:}"
+            MATRIX+="{\"city\":\"$key\",\"bbox\":\"$bbox\"},"
+          done
+          MATRIX="${MATRIX%,}]}"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+  
+  scrape-city:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+      max-parallel: 5
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Pull scraper image
+        run: docker pull gosom/google-maps-scraper
+      
+      - name: Create query file
+        run: |
+          CELL_SIZE="${{ github.event.inputs.cell_size_km }}"
+          MAX_CELLS="${{ github.event.inputs.max_cells_per_job }}"
+          python3 scripts/create_queries.py "${{ matrix.bbox }}" "${{ matrix.city }}" "$CELL_SIZE" "$MAX_CELLS"
+      
+      - name: Run scraper
+        run: |
+          docker run --rm \
+            -v "${{ runner.workspace }}:/data" \
+            gosom/google-maps-scraper \
+            -input "/data/${{ matrix.city }}_queries.txt" \
+            -results "/data/${{ matrix.city }}_results.csv" \
+            -grid-bbox "${{ matrix.bbox }}" \
+            -grid-cell "${{ github.event.inputs.cell_size_km }}" \
+            -depth 5 \
+            -c 2 \
+            -exit-on-inactivity 25m \
+            -zoom 16
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.city }}-results
+          path: ${{ matrix.city }}_results.csv
+          retention-days: 7
+
+  merge-results:
+    needs: [generate-matrix, scrape-city]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-results"
+          path: artifacts/
+          merge-multiple: true
+      
+      - name: Merge and deduplicate
+        run: python3 scripts/merge_results.py
+      
+      - name: Upload master
+        uses: actions/upload-artifact@v4
+        with:
+          name: master-leads
+          path: master_leads.csv
+          retention-days: 30
+
+      - name: Commit master to repo
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add master_leads.csv
+          git commit -m "Update master leads [skip ci]" || echo "No changes"
+          git push || echo "Push failed"
