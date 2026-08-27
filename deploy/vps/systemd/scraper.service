@@ -1,0 +1,25 @@
+[Unit]
+Description=Nigeria Logistics Scraper
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=scraper
+WorkingDirectory=/opt/scraper
+ExecStart=/opt/scraper/scripts/scraper.py
+Restart=on-failure
+RestartSec=300
+StandardOutput=append:/opt/scraper/logs/scraper.log
+StandardError=append:/opt/scraper/logs/scraper.log
+
+# Resource limits (OCI ARM 2 OCPU / 12GB)
+MemoryMax=8G
+CPUQuota=150%
+
+# Environment
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONPATH=/opt/scraper/scripts
+
+[Install]
+WantedBy=multi-user.target

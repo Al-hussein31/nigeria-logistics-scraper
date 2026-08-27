@@ -1,0 +1,2284 @@
+[
+  {
+    "batch_num": 1,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0001_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 2,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0002_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 3,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0003_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 4,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0004_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 5,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0005_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 6,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0006_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 7,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0007_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 8,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0008_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 9,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0009_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 10,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0010_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 11,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0011_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 12,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0012_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 13,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0013_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 14,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0014_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 15,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0015_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 16,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0016_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 17,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0017_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 18,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0018_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 19,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0019_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 20,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0020_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 21,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0021_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 22,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0022_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 23,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0023_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 24,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0024_lagos.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 25,
+    "city": "lagos",
+    "city_name": "Lagos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0025_lagos.txt",
+    "cell_count": 20,
+    "bbox": [
+      6.35,
+      3.15,
+      6.75,
+      3.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 26,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0026_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 27,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0027_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 28,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0028_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 29,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0029_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 30,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0030_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 31,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0031_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 32,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0032_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 33,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0033_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 34,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0034_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 35,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0035_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 36,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0036_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 37,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0037_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 38,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0038_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 39,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0039_port_harcourt.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 40,
+    "city": "port_harcourt",
+    "city_name": "Port Harcourt",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0040_port_harcourt.txt",
+    "cell_count": 52,
+    "bbox": [
+      4.65,
+      6.95,
+      5.05,
+      7.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 41,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0041_kano.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 42,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0042_kano.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 43,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0043_kano.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 44,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0044_kano.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 45,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0045_kano.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 46,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0046_kano.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 47,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0047_kano.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 48,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0048_kano.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 49,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0049_kano.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 50,
+    "city": "kano",
+    "city_name": "Kano",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0050_kano.txt",
+    "cell_count": 24,
+    "bbox": [
+      11.9,
+      8.4,
+      12.15,
+      8.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 51,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0051_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 52,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0052_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 53,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0053_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 54,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0054_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 55,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0055_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 56,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0056_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 57,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0057_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 58,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0058_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 59,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0059_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 60,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0060_ibadan.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 61,
+    "city": "ibadan",
+    "city_name": "Ibadan",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0061_ibadan.txt",
+    "cell_count": 89,
+    "bbox": [
+      7.25,
+      3.8,
+      7.55,
+      4.1
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 62,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0062_kaduna.txt",
+    "cell_count": 100,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 63,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0063_kaduna.txt",
+    "cell_count": 100,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 64,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0064_kaduna.txt",
+    "cell_count": 100,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 65,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0065_kaduna.txt",
+    "cell_count": 100,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 66,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0066_kaduna.txt",
+    "cell_count": 100,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 67,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0067_kaduna.txt",
+    "cell_count": 100,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 68,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0068_kaduna.txt",
+    "cell_count": 100,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 69,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0069_kaduna.txt",
+    "cell_count": 100,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 70,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0070_kaduna.txt",
+    "cell_count": 100,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 71,
+    "city": "kaduna",
+    "city_name": "Kaduna",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0071_kaduna.txt",
+    "cell_count": 24,
+    "bbox": [
+      10.45,
+      7.3,
+      10.7,
+      7.6
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 72,
+    "city": "enugu",
+    "city_name": "Enugu",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0072_enugu.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      7.4,
+      6.6,
+      7.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 73,
+    "city": "enugu",
+    "city_name": "Enugu",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0073_enugu.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      7.4,
+      6.6,
+      7.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 74,
+    "city": "enugu",
+    "city_name": "Enugu",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0074_enugu.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      7.4,
+      6.6,
+      7.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 75,
+    "city": "enugu",
+    "city_name": "Enugu",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0075_enugu.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      7.4,
+      6.6,
+      7.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 76,
+    "city": "enugu",
+    "city_name": "Enugu",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0076_enugu.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      7.4,
+      6.6,
+      7.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 77,
+    "city": "enugu",
+    "city_name": "Enugu",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0077_enugu.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      7.4,
+      6.6,
+      7.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 78,
+    "city": "enugu",
+    "city_name": "Enugu",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0078_enugu.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.35,
+      7.4,
+      6.6,
+      7.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 79,
+    "city": "enugu",
+    "city_name": "Enugu",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0079_enugu.txt",
+    "cell_count": 84,
+    "bbox": [
+      6.35,
+      7.4,
+      6.6,
+      7.65
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 80,
+    "city": "benin_city",
+    "city_name": "Benin City",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0080_benin_city.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.25,
+      5.5,
+      6.5,
+      5.75
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 81,
+    "city": "benin_city",
+    "city_name": "Benin City",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0081_benin_city.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.25,
+      5.5,
+      6.5,
+      5.75
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 82,
+    "city": "benin_city",
+    "city_name": "Benin City",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0082_benin_city.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.25,
+      5.5,
+      6.5,
+      5.75
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 83,
+    "city": "benin_city",
+    "city_name": "Benin City",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0083_benin_city.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.25,
+      5.5,
+      6.5,
+      5.75
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 84,
+    "city": "benin_city",
+    "city_name": "Benin City",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0084_benin_city.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.25,
+      5.5,
+      6.5,
+      5.75
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 85,
+    "city": "benin_city",
+    "city_name": "Benin City",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0085_benin_city.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.25,
+      5.5,
+      6.5,
+      5.75
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 86,
+    "city": "benin_city",
+    "city_name": "Benin City",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0086_benin_city.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.25,
+      5.5,
+      6.5,
+      5.75
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 87,
+    "city": "benin_city",
+    "city_name": "Benin City",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0087_benin_city.txt",
+    "cell_count": 84,
+    "bbox": [
+      6.25,
+      5.5,
+      6.5,
+      5.75
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 88,
+    "city": "aba",
+    "city_name": "Aba",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0088_aba.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.05,
+      7.3,
+      5.2,
+      7.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 89,
+    "city": "aba",
+    "city_name": "Aba",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0089_aba.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.05,
+      7.3,
+      5.2,
+      7.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 90,
+    "city": "aba",
+    "city_name": "Aba",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0090_aba.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.05,
+      7.3,
+      5.2,
+      7.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 91,
+    "city": "aba",
+    "city_name": "Aba",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0091_aba.txt",
+    "cell_count": 74,
+    "bbox": [
+      5.05,
+      7.3,
+      5.2,
+      7.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 92,
+    "city": "onitsha",
+    "city_name": "Onitsha",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0092_onitsha.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.05,
+      6.7,
+      6.25,
+      6.95
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 93,
+    "city": "onitsha",
+    "city_name": "Onitsha",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0093_onitsha.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.05,
+      6.7,
+      6.25,
+      6.95
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 94,
+    "city": "onitsha",
+    "city_name": "Onitsha",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0094_onitsha.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.05,
+      6.7,
+      6.25,
+      6.95
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 95,
+    "city": "onitsha",
+    "city_name": "Onitsha",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0095_onitsha.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.05,
+      6.7,
+      6.25,
+      6.95
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 96,
+    "city": "onitsha",
+    "city_name": "Onitsha",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0096_onitsha.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.05,
+      6.7,
+      6.25,
+      6.95
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 97,
+    "city": "onitsha",
+    "city_name": "Onitsha",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0097_onitsha.txt",
+    "cell_count": 100,
+    "bbox": [
+      6.05,
+      6.7,
+      6.25,
+      6.95
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 98,
+    "city": "onitsha",
+    "city_name": "Onitsha",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0098_onitsha.txt",
+    "cell_count": 16,
+    "bbox": [
+      6.05,
+      6.7,
+      6.25,
+      6.95
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 99,
+    "city": "owerri",
+    "city_name": "Owerri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0099_owerri.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.35,
+      6.95,
+      5.55,
+      7.15
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 100,
+    "city": "owerri",
+    "city_name": "Owerri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0100_owerri.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.35,
+      6.95,
+      5.55,
+      7.15
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 101,
+    "city": "owerri",
+    "city_name": "Owerri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0101_owerri.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.35,
+      6.95,
+      5.55,
+      7.15
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 102,
+    "city": "owerri",
+    "city_name": "Owerri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0102_owerri.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.35,
+      6.95,
+      5.55,
+      7.15
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 103,
+    "city": "owerri",
+    "city_name": "Owerri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0103_owerri.txt",
+    "cell_count": 84,
+    "bbox": [
+      5.35,
+      6.95,
+      5.55,
+      7.15
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 104,
+    "city": "warri",
+    "city_name": "Warri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0104_warri.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.45,
+      5.65,
+      5.65,
+      5.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 105,
+    "city": "warri",
+    "city_name": "Warri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0105_warri.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.45,
+      5.65,
+      5.65,
+      5.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 106,
+    "city": "warri",
+    "city_name": "Warri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0106_warri.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.45,
+      5.65,
+      5.65,
+      5.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 107,
+    "city": "warri",
+    "city_name": "Warri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0107_warri.txt",
+    "cell_count": 100,
+    "bbox": [
+      5.45,
+      5.65,
+      5.65,
+      5.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 108,
+    "city": "warri",
+    "city_name": "Warri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0108_warri.txt",
+    "cell_count": 84,
+    "bbox": [
+      5.45,
+      5.65,
+      5.65,
+      5.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 109,
+    "city": "calabar",
+    "city_name": "Calabar",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0109_calabar.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.85,
+      8.25,
+      5.05,
+      8.45
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 110,
+    "city": "calabar",
+    "city_name": "Calabar",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0110_calabar.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.85,
+      8.25,
+      5.05,
+      8.45
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 111,
+    "city": "calabar",
+    "city_name": "Calabar",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0111_calabar.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.85,
+      8.25,
+      5.05,
+      8.45
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 112,
+    "city": "calabar",
+    "city_name": "Calabar",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0112_calabar.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.85,
+      8.25,
+      5.05,
+      8.45
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 113,
+    "city": "calabar",
+    "city_name": "Calabar",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0113_calabar.txt",
+    "cell_count": 84,
+    "bbox": [
+      4.85,
+      8.25,
+      5.05,
+      8.45
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 114,
+    "city": "jos",
+    "city_name": "Jos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0114_jos.txt",
+    "cell_count": 100,
+    "bbox": [
+      9.8,
+      8.8,
+      10.0,
+      9.0
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 115,
+    "city": "jos",
+    "city_name": "Jos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0115_jos.txt",
+    "cell_count": 100,
+    "bbox": [
+      9.8,
+      8.8,
+      10.0,
+      9.0
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 116,
+    "city": "jos",
+    "city_name": "Jos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0116_jos.txt",
+    "cell_count": 100,
+    "bbox": [
+      9.8,
+      8.8,
+      10.0,
+      9.0
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 117,
+    "city": "jos",
+    "city_name": "Jos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0117_jos.txt",
+    "cell_count": 100,
+    "bbox": [
+      9.8,
+      8.8,
+      10.0,
+      9.0
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 118,
+    "city": "jos",
+    "city_name": "Jos",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0118_jos.txt",
+    "cell_count": 84,
+    "bbox": [
+      9.8,
+      8.8,
+      10.0,
+      9.0
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 119,
+    "city": "maiduguri",
+    "city_name": "Maiduguri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0119_maiduguri.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.7,
+      13.0,
+      11.95,
+      13.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 120,
+    "city": "maiduguri",
+    "city_name": "Maiduguri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0120_maiduguri.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.7,
+      13.0,
+      11.95,
+      13.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 121,
+    "city": "maiduguri",
+    "city_name": "Maiduguri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0121_maiduguri.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.7,
+      13.0,
+      11.95,
+      13.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 122,
+    "city": "maiduguri",
+    "city_name": "Maiduguri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0122_maiduguri.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.7,
+      13.0,
+      11.95,
+      13.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 123,
+    "city": "maiduguri",
+    "city_name": "Maiduguri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0123_maiduguri.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.7,
+      13.0,
+      11.95,
+      13.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 124,
+    "city": "maiduguri",
+    "city_name": "Maiduguri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0124_maiduguri.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.7,
+      13.0,
+      11.95,
+      13.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 125,
+    "city": "maiduguri",
+    "city_name": "Maiduguri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0125_maiduguri.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.7,
+      13.0,
+      11.95,
+      13.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 126,
+    "city": "maiduguri",
+    "city_name": "Maiduguri",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0126_maiduguri.txt",
+    "cell_count": 56,
+    "bbox": [
+      11.7,
+      13.0,
+      11.95,
+      13.25
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 127,
+    "city": "sokoto",
+    "city_name": "Sokoto",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0127_sokoto.txt",
+    "cell_count": 100,
+    "bbox": [
+      12.95,
+      5.1,
+      13.2,
+      5.35
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 128,
+    "city": "sokoto",
+    "city_name": "Sokoto",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0128_sokoto.txt",
+    "cell_count": 100,
+    "bbox": [
+      12.95,
+      5.1,
+      13.2,
+      5.35
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 129,
+    "city": "sokoto",
+    "city_name": "Sokoto",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0129_sokoto.txt",
+    "cell_count": 100,
+    "bbox": [
+      12.95,
+      5.1,
+      13.2,
+      5.35
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 130,
+    "city": "sokoto",
+    "city_name": "Sokoto",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0130_sokoto.txt",
+    "cell_count": 100,
+    "bbox": [
+      12.95,
+      5.1,
+      13.2,
+      5.35
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 131,
+    "city": "sokoto",
+    "city_name": "Sokoto",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0131_sokoto.txt",
+    "cell_count": 100,
+    "bbox": [
+      12.95,
+      5.1,
+      13.2,
+      5.35
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 132,
+    "city": "sokoto",
+    "city_name": "Sokoto",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0132_sokoto.txt",
+    "cell_count": 100,
+    "bbox": [
+      12.95,
+      5.1,
+      13.2,
+      5.35
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 133,
+    "city": "sokoto",
+    "city_name": "Sokoto",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0133_sokoto.txt",
+    "cell_count": 100,
+    "bbox": [
+      12.95,
+      5.1,
+      13.2,
+      5.35
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 134,
+    "city": "sokoto",
+    "city_name": "Sokoto",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0134_sokoto.txt",
+    "cell_count": 56,
+    "bbox": [
+      12.95,
+      5.1,
+      13.2,
+      5.35
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 135,
+    "city": "zaria",
+    "city_name": "Zaria",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0135_zaria.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.0,
+      7.6,
+      11.2,
+      7.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 136,
+    "city": "zaria",
+    "city_name": "Zaria",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0136_zaria.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.0,
+      7.6,
+      11.2,
+      7.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 137,
+    "city": "zaria",
+    "city_name": "Zaria",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0137_zaria.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.0,
+      7.6,
+      11.2,
+      7.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 138,
+    "city": "zaria",
+    "city_name": "Zaria",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0138_zaria.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.0,
+      7.6,
+      11.2,
+      7.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 139,
+    "city": "zaria",
+    "city_name": "Zaria",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0139_zaria.txt",
+    "cell_count": 100,
+    "bbox": [
+      11.0,
+      7.6,
+      11.2,
+      7.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 140,
+    "city": "zaria",
+    "city_name": "Zaria",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0140_zaria.txt",
+    "cell_count": 94,
+    "bbox": [
+      11.0,
+      7.6,
+      11.2,
+      7.85
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 141,
+    "city": "ilorin",
+    "city_name": "Ilorin",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0141_ilorin.txt",
+    "cell_count": 100,
+    "bbox": [
+      8.4,
+      4.45,
+      8.6,
+      4.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 142,
+    "city": "ilorin",
+    "city_name": "Ilorin",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0142_ilorin.txt",
+    "cell_count": 100,
+    "bbox": [
+      8.4,
+      4.45,
+      8.6,
+      4.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 143,
+    "city": "ilorin",
+    "city_name": "Ilorin",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0143_ilorin.txt",
+    "cell_count": 100,
+    "bbox": [
+      8.4,
+      4.45,
+      8.6,
+      4.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 144,
+    "city": "ilorin",
+    "city_name": "Ilorin",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0144_ilorin.txt",
+    "cell_count": 100,
+    "bbox": [
+      8.4,
+      4.45,
+      8.6,
+      4.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 145,
+    "city": "ilorin",
+    "city_name": "Ilorin",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0145_ilorin.txt",
+    "cell_count": 100,
+    "bbox": [
+      8.4,
+      4.45,
+      8.6,
+      4.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 146,
+    "city": "ilorin",
+    "city_name": "Ilorin",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0146_ilorin.txt",
+    "cell_count": 94,
+    "bbox": [
+      8.4,
+      4.45,
+      8.6,
+      4.7
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 147,
+    "city": "abeokuta",
+    "city_name": "Abeokuta",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0147_abeokuta.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.05,
+      3.25,
+      7.25,
+      3.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 148,
+    "city": "abeokuta",
+    "city_name": "Abeokuta",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0148_abeokuta.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.05,
+      3.25,
+      7.25,
+      3.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 149,
+    "city": "abeokuta",
+    "city_name": "Abeokuta",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0149_abeokuta.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.05,
+      3.25,
+      7.25,
+      3.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 150,
+    "city": "abeokuta",
+    "city_name": "Abeokuta",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0150_abeokuta.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.05,
+      3.25,
+      7.25,
+      3.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 151,
+    "city": "abeokuta",
+    "city_name": "Abeokuta",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0151_abeokuta.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.05,
+      3.25,
+      7.25,
+      3.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 152,
+    "city": "abeokuta",
+    "city_name": "Abeokuta",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0152_abeokuta.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.05,
+      3.25,
+      7.25,
+      3.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 153,
+    "city": "abeokuta",
+    "city_name": "Abeokuta",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0153_abeokuta.txt",
+    "cell_count": 16,
+    "bbox": [
+      7.05,
+      3.25,
+      7.25,
+      3.5
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 154,
+    "city": "akure",
+    "city_name": "Akure",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0154_akure.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.15,
+      5.1,
+      7.35,
+      5.3
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 155,
+    "city": "akure",
+    "city_name": "Akure",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0155_akure.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.15,
+      5.1,
+      7.35,
+      5.3
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 156,
+    "city": "akure",
+    "city_name": "Akure",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0156_akure.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.15,
+      5.1,
+      7.35,
+      5.3
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 157,
+    "city": "akure",
+    "city_name": "Akure",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0157_akure.txt",
+    "cell_count": 100,
+    "bbox": [
+      7.15,
+      5.1,
+      7.35,
+      5.3
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 158,
+    "city": "akure",
+    "city_name": "Akure",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0158_akure.txt",
+    "cell_count": 84,
+    "bbox": [
+      7.15,
+      5.1,
+      7.35,
+      5.3
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 159,
+    "city": "uyo",
+    "city_name": "Uyo",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0159_uyo.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.95,
+      7.85,
+      5.15,
+      8.05
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 160,
+    "city": "uyo",
+    "city_name": "Uyo",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0160_uyo.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.95,
+      7.85,
+      5.15,
+      8.05
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 161,
+    "city": "uyo",
+    "city_name": "Uyo",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0161_uyo.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.95,
+      7.85,
+      5.15,
+      8.05
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 162,
+    "city": "uyo",
+    "city_name": "Uyo",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0162_uyo.txt",
+    "cell_count": 100,
+    "bbox": [
+      4.95,
+      7.85,
+      5.15,
+      8.05
+    ],
+    "query": "logistics companies"
+  },
+  {
+    "batch_num": 163,
+    "city": "uyo",
+    "city_name": "Uyo",
+    "query_file": "/Users/MAC/Desktop/meshgrdy/Real Leads/grid_output/batch_0163_uyo.txt",
+    "cell_count": 84,
+    "bbox": [
+      4.95,
+      7.85,
+      5.15,
+      8.05
+    ],
+    "query": "logistics companies"
+  }
+]
