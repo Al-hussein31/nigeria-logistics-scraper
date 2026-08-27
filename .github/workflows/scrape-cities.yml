@@ -1,0 +1,301 @@
+name: Scrape Nigerian Cities - Parallel
+
+on:
+  workflow_dispatch:
+    inputs:
+      cities:
+        description: 'Comma-separated cities to scrape (empty = all)'
+        required: false
+        default: ''
+      cell_size_km:
+        description: 'Grid cell size in km'
+        required: false
+        default: '1.0'
+      max_cells_per_job:
+        description: 'Max cells per job (batch size)'
+        required: false
+        default: '50'
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Generate city matrix
+        id: set-matrix
+        run: |
+          CITIES=(
+            "lagos:6.35,3.15,6.75,3.65"
+            "port_harcourt:4.65,6.95,5.05,7.25"
+            "kano:11.90,8.40,12.15,8.70"
+            "ibadan:7.25,3.80,7.55,4.10"
+            "kaduna:10.45,7.30,10.70,7.60"
+            "enugu:6.35,7.40,6.60,7.65"
+            "benin_city:6.25,5.50,6.50,5.75"
+            "aba:5.05,7.30,5.20,7.50"
+            "onitsha:6.05,6.70,6.25,6.95"
+            "owerri:5.35,6.95,5.55,7.15"
+            "warri:5.45,5.65,5.65,5.85"
+            "calabar:4.85,8.25,5.05,8.45"
+            "jos:9.80,8.80,10.00,9.00"
+            "maiduguri:11.70,13.00,11.95,13.25"
+            "sokoto:12.95,5.10,13.20,5.35"
+            "zaria:11.00,7.60,11.20,7.85"
+            "ilorin:8.40,4.45,8.60,4.70"
+            "abeokuta:7.05,3.25,7.25,3.50"
+            "akure:7.15,5.10,7.35,5.30"
+            "uyo:4.95,7.85,5.15,8.05"
+          )
+          
+          # Filter if cities specified
+          if [[ -n "${{ github.event.inputs.cities }}" ]]; then
+            FILTER="${{ github.event.inputs.cities }}"
+            FILTERED=()
+            for c in "${CITIES[@]}"; do
+              key="${c%%:*}"
+              if [[ "$FILTER" == *"$key"* ]]; then
+                FILTERED+=("$c")
+              fi
+            done
+            CITIES=("${FILTERED[@]}")
+          fi
+          
+          # Build matrix JSON
+          MATRIX='{"include":['
+          for c in "${CITIES[@]}"; do
+            key="${c%%:*}"
+            bbox="${c#*:}"
+            MATRIX+="{\"city\":\"$key\",\"bbox\":\"$bbox\"},"
+          done
+          MATRIX="${MATRIX%,}]}"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+  
+  scrape-city:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+      max-parallel: 5
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Pull scraper image
+        run: docker pull gosom/google-maps-scraper
+      
+      - name: Create query file
+        id: query
+        run: |
+          CELL_SIZE="${{ github.event.inputs.cell_size_km }}"
+          MAX_CELLS="${{ github.event.inputs.max_cells_per_job }}"
+          
+          # Generate grid cells for this city's bbox
+          python3 << PYEOF
+import math, json, os
+
+bbox_str = "${{ matrix.bbox }}"
+city = "${{ matrix.city }}"
+cell_size = float("${{ github.event.inputs.cell_size_km }}")
+max_cells = int("${{ github.event.inputs.max_cells_per_job }}")
+
+minLat, minLon, maxLat, maxLon = map(float, bbox_str.split(","))
+center_lat = (minLat + maxLat) / 2
+lat_step = cell_size / 111.0
+lon_step = cell_size / (111.0 * math.cos(math.radians(center_lat)))
+
+cells = []
+lat = minLat + lat_step / 2
+while lat < maxLat:
+    lon = minLon + lon_step / 2
+    while lon < maxLon:
+        cells.append((round(lat,6), round(lon,6)))
+        lon += lon_step
+    lat += lat_step
+
+# Limit cells per job
+cells = cells[:max_cells]
+
+queries = [
+    "logistics companies", "freight forwarders", "shipping companies",
+    "customs brokers", "warehouse storage", "cold storage",
+    "courier services", "haulage companies", "transport companies", "supply chain"
+]
+
+with open(f"{city}_queries.txt", "w") as f:
+    for lat, lon in cells:
+        for q in queries:
+            f.write(f"{q} {city.replace('_', ' ').title()} @{lat},{lon}\\n")
+
+print(f"Generated {len(cells)} cells, {len(cells)*len(queries)} queries")
+PYEOF
+      
+      - name: Run scraper
+        run: |
+          docker run --rm \
+            -v "${{ runner.workspace }}:/data" \
+            gosom/google-maps-scraper \
+            -input "/data/${{ matrix.city }}_queries.txt" \
+            -results "/data/${{ matrix.city }}_results.csv" \
+            -grid-bbox "${{ matrix.bbox }}" \
+            -grid-cell "${{ github.event.inputs.cell_size_km }}" \
+            -depth 5 \
+            -c 2 \
+            -exit-on-inactivity 25m \
+            -zoom 16
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.city }}-results
+          path: ${{ matrix.city }}_results.csv
+          retention-days: 7
+
+  merge-results:
+    needs: [generate-matrix, scrape-city]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: *-results
+          path: artifacts/
+          merge-multiple: true
+      
+      - name: Merge and deduplicate
+        run: |
+          python3 << 'PYEOF'
+import pandas as pd
+import glob
+import re
+
+def norm_name(s):
+    if not s or pd.isna(s): return ''
+    return re.sub(r'[^a-z0-9]', '', str(s).lower())
+
+def norm_phone(s):
+    if not s or pd.isna(s): return ''
+    return re.sub(r'[^0-9]', '', str(s))
+
+# Load existing master if available
+try:
+    master = pd.read_csv("master_leads.csv")
+    master['_key_name'] = master['businessName'].fillna(master['name']).apply(norm_name)
+    master['_key_phone'] = master['phone'].apply(norm_phone)
+    existing_names = set(master['_key_name'].dropna())
+    existing_phones = set(master['_key_phone'].dropna())
+    existing_phones.discard('')
+    print(f"Loaded master: {len(master)} leads")
+except:
+    master = pd.DataFrame()
+    existing_names = set()
+    existing_phones = set()
+    print("No existing master")
+
+# Process all result files
+all_new = []
+for f in glob.glob("artifacts/*_results.csv"):
+    try:
+        df = pd.read_csv(f)
+        if len(df) == 0: continue
+        
+        df['_key_name'] = df['title'].apply(norm_name)
+        df['_key_phone'] = df['phone'].apply(norm_phone)
+        df = df.drop_duplicates(subset=['_key_name'], keep='first')
+        
+        # Filter new
+        both_match = df[
+            (df['_key_name'].isin(existing_names)) & 
+            (df['_key_phone'].isin(existing_phones) & (df['_key_phone'] != ''))
+        ]
+        truly_new = df[~df.index.isin(both_match.index)].copy()
+        truly_new = truly_new.drop_duplicates(subset=['_key_name'], keep='first')
+        
+        if len(truly_new) > 0:
+            # Map to schema
+            new_mapped = pd.DataFrame()
+            new_mapped['id'] = [f"GHA-{i}" for i in range(len(truly_new))]
+            new_mapped['name'] = truly_new['title']
+            new_mapped['businessName'] = truly_new['title']
+            new_mapped['sector'] = 'logistics'
+            new_mapped['subSector'] = ''
+            new_mapped['industry'] = truly_new.get('category', '')
+            new_mapped['location'] = truly_new.get('address', '')
+            new_mapped['district'] = ''
+            new_mapped['phone'] = truly_new['phone']
+            new_mapped['email'] = truly_new.get('emails', '')
+            new_mapped['website'] = truly_new.get('website', '')
+            new_mapped['source'] = f"github_actions_{f.split('/')[-1].split('_')[0]}"
+            new_mapped['score'] = ''
+            new_mapped['enrichmentLevel'] = 'basic'
+            new_mapped['validationStatus'] = 'unverified'
+            new_mapped['createdAt'] = pd.Timestamp.now().isoformat()
+            new_mapped['slug'] = truly_new['title'].str.lower().str.replace(r'[^a-z0-9]+', '-', regex=True).str.strip('-')
+            new_mapped['socialLinks'] = ''
+            new_mapped['enriched'] = False
+            new_mapped['folder'] = 'logistics/github_actions'
+            new_mapped['stage'] = 'discovered'
+            new_mapped['whatsapp'] = ''
+            new_mapped['review_count'] = truly_new.get('review_count', 0)
+            new_mapped['review_rating'] = truly_new.get('review_rating', 0)
+            new_mapped['latitude'] = truly_new.get('latitude', 0)
+            new_mapped['longitude'] = truly_new.get('longitude', 0)
+            new_mapped['place_id'] = truly_new.get('place_id', '')
+            
+            all_new.append(new_mapped)
+            print(f"  {f}: +{len(truly_new)} new")
+            
+            # Update existing sets
+            for _, row in truly_new.iterrows():
+                existing_names.add(row['_key_name'])
+                if row['_key_phone'] != '':
+                    existing_phones.add(row['_key_phone'])
+    except Exception as e:
+        print(f"Error processing {f}: {e}")
+
+# Merge with master
+if all_new:
+    new_df = pd.concat(all_new, ignore_index=True)
+    if len(master) > 0:
+        combined = pd.concat([master, new_df], ignore_index=True)
+    else:
+        combined = new_df
+    
+    combined['_key_name'] = combined['businessName'].fillna(combined['name']).apply(lambda s: norm_name(s) if pd.notna(s) else '')
+    combined['_key_phone'] = combined['phone'].apply(norm_phone)
+    combined = combined.drop_duplicates(subset=['_key_name'], keep='first')
+    combined = combined.drop(columns=['_key_name', '_key_phone'], errors='ignore')
+    
+    combined.to_csv("master_leads.csv", index=False)
+    print(f"Master updated: {len(combined)} total leads")
+else:
+    if len(master) > 0:
+        master.to_csv("master_leads.csv", index=False)
+        print(f"No new leads, master unchanged: {len(master)}")
+
+      - name: Upload master
+        uses: actions/upload-artifact@v4
+        with:
+          name: master-leads
+          path: master_leads.csv
+          retention-days: 30
+
+      - name: Commit master to repo
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add master_leads.csv
+          git commit -m "Update master leads [skip ci]" || echo "No changes"
+          git push || echo "Push failed"
