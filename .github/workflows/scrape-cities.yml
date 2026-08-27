@@ -98,7 +98,7 @@ jobs:
       - name: Run scraper
         run: |
           docker run --rm \
-            -v "${{ runner.workspace }}:/data" \
+            -v "${{ github.workspace }}:/data" \
             gosom/google-maps-scraper \
             -input "/data/${{ matrix.city }}_queries.txt" \
             -results "/data/${{ matrix.city }}_results.csv" \
