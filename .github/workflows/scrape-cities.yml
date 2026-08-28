@@ -9,64 +9,13 @@ on:
         default: ''
 
 jobs:
-  generate-matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Generate city matrix
-        id: set-matrix
-        run: |
-          CITIES=(
-            "lagos"
-            "port_harcourt"
-            "kano"
-            "ibadan"
-            "kaduna"
-            "enugu"
-            "benin_city"
-            "aba"
-            "onitsha"
-            "owerri"
-            "warri"
-            "calabar"
-            "jos"
-            "maiduguri"
-            "sokoto"
-            "zaria"
-            "ilorin"
-            "abeokuta"
-            "akure"
-            "uyo"
-          )
-
-          if [[ -n "${{ github.event.inputs.cities }}" ]]; then
-            FILTER="${{ github.event.inputs.cities }}"
-            FILTERED=()
-            for c in "${CITIES[@]}"; do
-              if [[ "$FILTER" == *"$c"* ]]; then
-                FILTERED+=("$c")
-              fi
-            done
-            CITIES=("${FILTERED[@]}")
-          fi
-
-          MATRIX='{"city":['
-          for c in "${CITIES[@]}"; do
-            MATRIX+="\"$c\","
-          done
-          MATRIX="${MATRIX%,}]}"
-          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
-
   scrape-city:
-    needs: generate-matrix
     runs-on: ubuntu-latest
     timeout-minutes: 50
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+      matrix:
+        city: [lagos, kano, ibadan, kaduna, enugu, benin_city, aba, onitsha, owerri, warri, calabar, jos, maiduguri, sokoto, zaria, ilorin, abeokuta, akure, uyo, port_harcourt]
       max-parallel: 5
 
     steps:
@@ -93,7 +42,6 @@ jobs:
           if-no-files-found: ignore
 
   merge-results:
-    needs: [generate-matrix, scrape-city]
     runs-on: ubuntu-latest
     if: always()
 
