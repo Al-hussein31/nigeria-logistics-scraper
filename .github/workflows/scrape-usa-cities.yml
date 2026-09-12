@@ -15,7 +15,7 @@ on:
 jobs:
   scrape-city:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
@@ -27,6 +27,7 @@ jobs:
 
       - name: Create query file for ${{ matrix.city }}
         run: python3 scripts/create_usa_queries.py ${{ matrix.city }}
+        timeout-minutes: 10
 
       - name: Run scraper with email extraction
         run: |
@@ -38,8 +39,9 @@ jobs:
             -depth 5 \
             -c 2 \
             -email \
-            -exit-on-inactivity 30m \
+            -exit-on-inactivity 60m \
             -zoom 16
+        timeout-minutes: 80
 
       - name: Upload results
         uses: actions/upload-artifact@v4
@@ -56,6 +58,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install Python dependencies
+        run: pip install pandas
 
       - name: Download all artifacts
         uses: actions/download-artifact@v4
