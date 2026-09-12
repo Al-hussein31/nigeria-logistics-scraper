@@ -1,0 +1,85 @@
+name: Scrape USA Event Planners - Test Single City
+
+on:
+  workflow_dispatch:
+    inputs:
+      city:
+        description: 'City key to test'
+        required: true
+        default: 'miami_fl'
+
+jobs:
+  scrape-city:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create query file for ${{ github.event.inputs.city }} (5 queries)
+        run: python3 scripts/create_usa_queries_test.py ${{ github.event.inputs.city }}
+        timeout-minutes: 5
+
+      - name: Run scraper with email extraction
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/data" \
+            gosom/google-maps-scraper \
+            -input "/data/city_queries/${{ github.event.inputs.city }}.txt" \
+            -results "/data/city_results/${{ github.event.inputs.city }}.csv" \
+            -depth 3 \
+            -c 2 \
+            -email \
+            -exit-on-inactivity 30m \
+            -zoom 16
+        timeout-minutes: 35
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.city }}-results
+          path: city_results/${{ github.event.inputs.city }}.csv
+          retention-days: 7
+          if-no-files-found: ignore
+
+  merge-results:
+    needs: scrape-city
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Python dependencies
+        run: pip install pandas
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-results"
+          path: artifacts/
+          merge-multiple: true
+
+      - name: Merge and deduplicate (USA Events)
+        run: python3 scripts/merge_usa_results.py
+
+      - name: Upload master (all leads)
+        uses: actions/upload-artifact@v4
+        with:
+          name: master-leads-all
+          path: master_leads_all.csv
+          retention-days: 30
+
+      - name: Upload master (with website)
+        uses: actions/upload-artifact@v4
+        with:
+          name: master-leads-with-website
+          path: master_leads_with_website.csv
+          retention-days: 30
+
+      - name: Upload master (with email)
+        uses: actions/upload-artifact@v4
+        with:
+          name: master-leads-with-email
+          path: master_leads_with_email.csv
+          retention-days: 30
