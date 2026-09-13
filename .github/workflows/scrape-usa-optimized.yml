@@ -1,4 +1,4 @@
-name: Scrape USA Event Planners - Optimized Parallel
+name: Scrape USA Event Planners - Optimized
 
 on:
   workflow_dispatch:
@@ -9,150 +9,41 @@ on:
         default: 'quick'
         type: choice
         options:
-          - quick    # 5 queries, 60 cells = 300 queries/city
-          - deep     # 15 queries, 60 cells = 900 queries/city
+          - quick
+          - deep
       max_parallel:
-        description: 'Max parallel jobs (GitHub Free = 20, Pro = 40)'
+        description: 'Max parallel jobs'
         required: false
         default: '5'
-      cities:
-        description: 'Comma-separated city keys (empty = all 15)'
-        required: false
-        default: ''
 
 jobs:
-  generate-queries:
+  generate-matrix:
     runs-on: ubuntu-latest
     outputs:
-      city_matrix: ${{ steps.matrix.outputs.city_matrix }}
+      matrix: ${{ steps.gen.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-      
       - name: Generate city matrix
-        id: matrix
+        id: gen
         run: |
-          python3 -c "
-import json, os
-
-CITIES = {
-    'miami_fl': {'name': 'Miami, FL', 'bbox': (-80.3197600, 25.7090517, -80.1391570, 25.8557827)},
-    'atlanta_ga': {'name': 'Atlanta, GA', 'bbox': (-84.5508540, 33.6479187, -84.2895600, 33.8868230)},
-    'las_vegas_nv': {'name': 'Las Vegas, NV', 'bbox': (-115.4065750, 36.1295540, -115.0620660, 36.4014810)},
-    'orlando_fl': {'name': 'Orlando, FL', 'bbox': (-81.5075377, 28.3480634, -81.1241435, 28.6142830)},
-    'new_york_ny': {'name': 'New York, NY', 'bbox': (-74.2588430, 40.4765780, -73.7002330, 40.9176300)},
-    'charlotte_nc': {'name': 'Charlotte, NC', 'bbox': (-81.0116951, 35.0105195, -80.6348755, 35.4002508)},
-    'denver_co': {'name': 'Denver, CO', 'bbox': (-105.1098845, 39.6143008, -104.5996997, 39.9142087)},
-    'san_francisco_ca': {'name': 'San Francisco, CA', 'bbox': (-123.1738250, 37.6403143, -122.2814578, 37.9296678)},
-    'phoenix_az': {'name': 'Phoenix, AZ', 'bbox': (-112.3240289, 33.2904827, -111.9255304, 33.9183794)},
-    'tampa_fl': {'name': 'Tampa, FL', 'bbox': (-82.6488200, 27.8126539, -82.2538678, 28.1713602)},
-    'houston_tx': {'name': 'Houston, TX', 'bbox': (-95.9097419, 29.5370705, -95.0120525, 30.1103506)},
-    'los_angeles_ca': {'name': 'Los Angeles, CA', 'bbox': (-118.6681798, 33.6595410, -118.1552983, 34.3373060)},
-    'chicago_il': {'name': 'Chicago, IL', 'bbox': (-87.9400876, 41.6445310, -87.5241243, 42.0230529)},
-    'dallas_tx': {'name': 'Dallas, TX', 'bbox': (-97.0004820, 32.6132160, -96.4636317, 33.0239366)},
-    'washington_dc': {'name': 'Washington, DC', 'bbox': (-77.1197949, 38.7916303, -76.9093660, 38.9959680)},
-}
-
-mode = '${{ github.event.inputs.mode }}'
-if mode == 'quick':
-    QUERIES = ['event planners', 'event organizers', 'event management companies', 'wedding planners', 'corporate event planning']
-else:
-    QUERIES = [
-        'event planners', 'event organizers', 'event management companies',
-        'corporate event planning', 'wedding planners', 'conference organizers',
-        'trade show organizers', 'event production companies', 'meeting planners',
-        'festival organizers', 'event venues', 'event spaces rental',
-        'corporate event venues', 'convention services', 'exhibition organizers',
-    ]
-
-selected = '${{ github.event.inputs.cities }}'.split(',') if '${{ github.event.inputs.cities }}' else []
-if not selected or selected == ['']:
-    selected = list(CITIES.keys())
-
-matrix = []
-for key in selected:
-    if key in CITIES:
-        city = CITIES[key]
-        import math
-        minLat, minLon, maxLat, maxLon = city['bbox']
-        center_lat = (minLat + maxLat) / 2
-        cell_size = 1.0
-        lat_step = cell_size / 111.0
-        lon_step = cell_size / (111.0 * math.cos(math.radians(center_lat)))
-        cells = []
-        lat = minLat + lat_step / 2
-        while lat < maxLat:
-            lon = minLon + lon_step / 2
-            while lon < maxLon:
-                cells.append({'lat': round(lat, 6), 'lon': round(lon, 6)})
-                lon += lon_step
-            lat += lat_step
-        
-        matrix.append({
-            'key': key,
-            'name': city['name'],
-            'bbox': city['bbox'],
-            'cells': len(cells),
-            'queries': len(QUERIES),
-            'total': len(cells) * len(QUERIES)
-        })
-
-print(f'Cities: {len(matrix)}')
-print(f'Total queries: {sum(m[\"total\"] for m in matrix)}')
-print(f'::set-output name=city_matrix::{json.dumps(matrix)}')
-"
+          python3 scripts/gha_generate_matrix.py ${{ github.event.inputs.mode }} "" | jq -c . > matrix.json
+          echo "matrix=$(cat matrix.json)" >> $GITHUB_OUTPUT
 
   scrape-city:
-    needs: generate-queries
+    needs: generate-matrix
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.generate-queries.outputs.city_matrix) }}
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
       max-parallel: ${{ github.event.inputs.max_parallel }}
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create query file for ${{ matrix.key }}
-        run: |
-          python3 -c "
-import json, math
-city = {
-    'key': '${{ matrix.key }}',
-    'name': '${{ matrix.name }}',
-    'bbox': ${{ matrix.bbox }},
-}
-queries = ${{ toJson(github.event.inputs.mode == 'quick' && 
-  ['event planners', 'event organizers', 'event management companies', 'wedding planners', 'corporate event planning'] ||
-  ['event planners', 'event organizers', 'event management companies',
-   'corporate event planning', 'wedding planners', 'conference organizers',
-   'trade show organizers', 'event production companies', 'meeting planners',
-   'festival organizers', 'event venues', 'event spaces rental',
-   'corporate event venues', 'convention services', 'exhibition organizers']
-) }}
+      - name: Create query file
+        run: python3 scripts/gha_create_queries.py ${{ matrix.key }} ${{ github.event.inputs.mode }}
 
-minLat, minLon, maxLat, maxLon = city['bbox']
-center_lat = (minLat + maxLat) / 2
-cell_size = 1.0
-lat_step = cell_size / 111.0
-lon_step = cell_size / (111.0 * math.cos(math.radians(center_lat)))
-cells = []
-lat = minLat + lat_step / 2
-while lat < maxLat:
-    lon = minLon + lon_step / 2
-    while lon < maxLon:
-        cells.append((round(lat, 6), round(lon, 6)))
-        lon += lon_step
-    lat += lat_step
-
-with open(f'city_queries/${{ matrix.key }}.txt', 'w') as f:
-    for lat, lon in cells:
-        for q in queries:
-            f.write(f'{q} {city[\"name\"]} @{lat},{lon}\n')
-print(f'Created {len(cells)} cells × {len(queries)} queries = {len(cells)*len(queries)} lines')
-          "
-
-      - name: Run scraper (optimized, no email)
+      - name: Run scraper (optimized)
         run: |
           docker run --rm \
             -v "${{ github.workspace }}:/data" \
@@ -175,149 +66,43 @@ print(f'Created {len(cells)} cells × {len(queries)} queries = {len(cells)*len(q
           if-no-files-found: ignore
 
   merge-results:
-    needs: [generate-queries, scrape-city]
+    needs: [generate-matrix, scrape-city]
     runs-on: ubuntu-latest
     if: always()
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: pip install pandas
-
-      - name: Download all artifacts
+      - run: pip install pandas
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           pattern: "*-results"
           path: artifacts/
           merge-multiple: true
-
-      - name: Merge and deduplicate (3-tier output)
-        run: |
-          python3 << 'EOF'
-import pandas as pd
-import glob
-import re
-
-def norm_name(s):
-    if not s or pd.isna(s): return ''
-    return re.sub(r'[^a-z0-9]', '', str(s).lower())
-
-def norm_phone(s):
-    if not s or pd.isna(s): return ''
-    return re.sub(r'[^0-9]', '', str(s))
-
-master_all = pd.DataFrame()
-master_web = pd.DataFrame()
-master_email = pd.DataFrame()
-
-for f in glob.glob('artifacts/*_results.csv'):
-    try:
-        df = pd.read_csv(f)
-        if len(df) == 0: continue
-        
-        if 'place_id' in df.columns:
-            df = df.drop_duplicates(subset=['place_id'], keep='first')
-        
-        city = f.split('/')[-1].split('_')[0]
-        df['source_city'] = city
-        
-        master_all = pd.concat([master_all, df], ignore_index=True)
-        web_df = df[df['website'].notna() & (df['website'] != '')]
-        if len(web_df) > 0:
-            master_web = pd.concat([master_web, web_df], ignore_index=True)
-        email_df = df[df['emails'].notna() & (df['emails'] != '')]
-        if len(email_df) > 0:
-            master_email = pd.concat([master_email, email_df], ignore_index=True)
-    except Exception as e:
-        print(f'Error {f}: {e}')
-
-# Deduplicate
-for name, df in [('all', master_all), ('web', master_web), ('email', master_email)]:
-    if len(df) > 0:
-        df['_key'] = df['title'].apply(norm_name)
-        df = df.drop_duplicates(subset=['_key'], keep='first')
-        df = df.drop(columns=['_key'])
-        df.to_csv(f'master_leads_{name}.csv', index=False)
-        print(f'master_leads_{name}.csv: {len(df)} leads')
-
-print(f'TOTAL: all={len(master_all)}, web={len(master_web)}, email={len(master_email)}')
-EOF
-
-      - name: Upload master (all leads)
+      - name: Merge results
+        run: python3 scripts/gha_merge_results.py
+      - name: Upload master (all)
         uses: actions/upload-artifact@v4
         with:
           name: master-leads-all
           path: master_leads_all.csv
           retention-days: 30
-
       - name: Upload master (with website)
         uses: actions/upload-artifact@v4
         with:
           name: master-leads-with-website
           path: master_leads_with_website.csv
           retention-days: 30
-
       - name: Upload master (with email)
         uses: actions/upload-artifact@v4
         with:
           name: master-leads-with-email
           path: master_leads_with_email.csv
           retention-days: 30
-
       - name: Commit to repo
         if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add master_leads_all.csv master_leads_with_website.csv master_leads_with_email.csv
-          git commit -m "Update USA event planners: ${{ needs.generate-queries.outputs.city_matrix | fromJson | length }} cities, ${{ github.event.inputs.mode }} mode [skip ci]" || echo "No changes"
+          git commit -m "Update USA event planners: ${{ needs.generate-matrix.outputs.matrix | fromJson | length }} cities, ${{ github.event.inputs.mode }} mode [skip ci]" || echo "No changes"
           git push || echo "Push failed"
-
-  enrichment-pass:
-    needs: merge-results
-    runs-on: ubuntu-latest
-    if: always() && github.event.inputs.mode == 'deep'
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download website leads
-        uses: actions/download-artifact@v4
-        with:
-          name: master-leads-with-website
-          path: enrichment/
-      
-      - name: Run email enrichment on websites
-        run: |
-          python3 << 'EOF'
-import pandas as pd
-import subprocess
-import tempfile
-import os
-
-df = pd.read_csv('enrichment/master_leads_with_website.csv')
-websites = df['website'].dropna().unique()
-print(f'Enriching {len(websites)} unique websites...')
-
-# Create temp file with just website URLs
-with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
-    for w in websites:
-        f.write(f'{w}\n')
-    temp_file = f.name
-
-try:
-    # Run scraper in email-only mode on website list
-    result = subprocess.run([
-        'docker', 'run', '--rm',
-        '-v', f'{os.getcwd()}:/data',
-        'gosom/google-maps-scraper',
-        '-input', f'/data/{os.path.basename(temp_file)}',
-        '-results', '/data/enriched_emails.csv',
-        '-email',
-        '-c', '4',
-        '-depth', '1',
-        '-exit-on-inactivity', '30m'
-    ], capture_output=True, text=True, timeout=3600)
-    print(result.stdout)
-    print(result.stderr)
-finally:
-    os.unlink(temp_file)
-EOF
