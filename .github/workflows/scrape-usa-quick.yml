@@ -11,14 +11,14 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
 
       - name: Create query file (3 queries, 30 cells)
         run: python3 scripts/create_usa_quick.py ${{ github.event.inputs.city }}
 
-      - name: Run scraper (fast)
+      - name: Run scraper with email extraction
         run: |
           docker run --rm \
             -v "${{ github.workspace }}:/data" \
@@ -29,8 +29,9 @@ jobs:
             -c 4 \
             -pages-per-browser 2 \
             -zoom 16 \
-            -exit-on-inactivity 15m
-        timeout-minutes: 25
+            -email \
+            -exit-on-inactivity 20m
+        timeout-minutes: 30
 
       - name: Upload results
         uses: actions/upload-artifact@v4
@@ -42,4 +43,6 @@ jobs:
 
       - name: Summary
         if: always()
-        run: python3 scripts/summarize_results.py ${{ github.event.inputs.city }}
+        run: |
+          pip install pandas -q
+          python3 scripts/summarize_results.py ${{ github.event.inputs.city }}
