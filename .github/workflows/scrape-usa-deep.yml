@@ -25,14 +25,26 @@ jobs:
         run: |
           set -euo pipefail
           
-          # Create query file
+          echo "=== DEBUG: Current directory ==="
+          pwd
+          echo "=== DEBUG: List workspace ==="
+          ls -la
+          
+          echo "=== DEBUG: Create query file ==="
           python3 scripts/create_usa_deep.py "${CITY}"
           
-          # Copy to /tmp for docker access
+          echo "=== DEBUG: Check if query file exists ==="
+          ls -la "city_queries/${CITY}_deep.txt"
+          
+          echo "=== DEBUG: Copy to /tmp ==="
           cp "city_queries/${CITY}_deep.txt" "/tmp/${CITY}_deep.txt"
+          
+          echo "=== DEBUG: Verify copy ==="
+          ls -la "/tmp/${CITY}_deep.txt"
+          
           mkdir -p /tmp/city_results
           
-          # Run scraper
+          echo "=== DEBUG: Run scraper ==="
           docker run --rm \
             -v /tmp:/data \
             gosom/google-maps-scraper \
