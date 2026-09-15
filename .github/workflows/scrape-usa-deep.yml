@@ -4,21 +4,21 @@ on:
   workflow_dispatch:
     inputs:
       cities:
-        description: 'Comma-separated city keys (blank = all 5)'
+        description: 'Comma-separated city keys (blank = all)'
         required: false
         default: 'miami_fl,atlanta_ga,las_vegas_nv,orlando_fl,new_york_ny'
-      max_lines:
-        description: 'Cap query lines per city (blank = full 900). Use ~30 for a smoke test.'
+      cells:
+        description: 'Grid cells per city (coverage vs runtime). 32 is a good default; 6 for a smoke test.'
         required: false
-        default: ''
+        default: '32'
 
 # Required so the merge job can push the updated master CSVs back to main.
 permissions:
   contents: write
 
 env:
-  # Native ARM64 build of gosom/google-maps-scraper (amd64 image runs under
-  # qemu emulation on the OCI A1 and never completes a job).
+  # Native ARM64 build of gosom/google-maps-scraper. The upstream amd64 image
+  # runs under qemu on the OCI A1 and never completes a job.
   SCRAPER_IMAGE: google-maps-scraper:arm64
 
 jobs:
@@ -27,13 +27,16 @@ jobs:
     outputs:
       cities: ${{ steps.parse.outputs.cities }}
     steps:
+      - uses: actions/checkout@v4
       - id: parse
         env:
           RAW: ${{ inputs.cities }}
         run: |
+          VALID="$(python3 scripts/create_usa_deep.py --list)"
+          export VALID
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
           import os, json
-          valid = ['miami_fl', 'atlanta_ga', 'las_vegas_nv', 'orlando_fl', 'new_york_ny']
+          valid = os.environ['VALID'].split(',')
           raw = (os.environ.get('RAW') or '').strip()
           chosen = [c.strip() for c in raw.split(',') if c.strip() in valid]
           print('cities=' + json.dumps(chosen or valid))
@@ -42,10 +45,14 @@ jobs:
   scrape-city:
     needs: prepare
     runs-on: [self-hosted, linux, arm64, scraper]
+    # ~10 jobs/min on 2 OCPU. A full city is a multi-hour job.
     timeout-minutes: 320
     strategy:
       fail-fast: false
-      max-parallel: 2
+      # The box is CPU-bound (2 OCPU), so parallel jobs do not increase total
+      # throughput, they only split it. Keep this at 1 to protect the
+      # production services co-hosted on the same VM.
+      max-parallel: 1
       matrix:
         city: ${{ fromJSON(needs.prepare.outputs.cities) }}
 
@@ -65,38 +72,45 @@ jobs:
       - name: Scrape city
         env:
           CITY: ${{ matrix.city }}
-          MAX_LINES: ${{ inputs.max_lines }}
+          CELLS: ${{ inputs.cells }}
         run: |
           set -euo pipefail
 
-          # /tmp is bind-mounted from the host into both runner containers,
-          # so the host docker daemon can see files we write here.
-          # Namespace by run id + city so parallel jobs never collide.
+          python3 scripts/create_usa_deep.py "${CITY}" --cells "${CELLS}" --print
+
+          # Load GRID_BBOX / GRID_CELL / ZOOM produced by the generator.
+          set -a
+          . "city_queries/${CITY}_grid.env"
+          set +a
+
+          # /tmp is bind-mounted from the host into the runner containers, so
+          # the host docker daemon can read files written here. Namespaced by
+          # run id + city to avoid collisions.
           SHARED="/tmp/leads-scrape/${GITHUB_RUN_ID}/${CITY}"
           rm -rf "${SHARED}"
           mkdir -p "${SHARED}/results"
+          cp "city_queries/${CITY}_terms.txt" "${SHARED}/terms.txt"
 
-          python3 scripts/create_usa_deep.py "${CITY}"
+          echo "=== ${SCRAPER_IMAGE} | ${CITY_NAME} ==="
+          echo "  grid  : ${GRID_CELL} km cells @ zoom ${ZOOM}"
+          echo "  bbox  : ${GRID_BBOX}"
+          echo "  terms : ${TERMS} x ~${CELLS} cells"
 
-          if [ -n "${MAX_LINES}" ]; then
-            echo "Smoke test: limiting to ${MAX_LINES} query lines"
-            head -n "${MAX_LINES}" "city_queries/${CITY}_deep.txt" > "${SHARED}/${CITY}_deep.txt"
-          else
-            cp "city_queries/${CITY}_deep.txt" "${SHARED}/${CITY}_deep.txt"
-          fi
-          ls -la "${SHARED}/${CITY}_deep.txt"
-
-          echo "=== Running ${SCRAPER_IMAGE} for ${CITY} ==="
+          # Geography goes through -grid-bbox/-grid-cell. This is the ONLY
+          # mechanism that applies coordinates; an "@lat,lng" suffix on a query
+          # line is treated as literal search text.
           docker run --rm \
-            --memory 4g \
+            --memory 3g \
             -v "${SHARED}:/data" \
             "${SCRAPER_IMAGE}" \
-            -input "/data/${CITY}_deep.txt" \
+            -input "/data/terms.txt" \
             -results "/data/results/${CITY}_deep.csv" \
+            -grid-bbox "${GRID_BBOX}" \
+            -grid-cell "${GRID_CELL}" \
+            -zoom "${ZOOM}" \
             -depth 3 \
-            -c 4 \
+            -c 3 \
             -pages-per-browser 2 \
-            -zoom 16 \
             -email \
             -exit-on-inactivity 15m
         timeout-minutes: 300
@@ -179,5 +193,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add master_leads_all.csv master_leads_with_website.csv master_leads_with_email.csv
-          git commit -m "Add deep mode leads from top 5 cities [skip ci]" || echo "No changes"
+          git commit -m "Add deep mode leads [skip ci]" || echo "No changes"
           git push
