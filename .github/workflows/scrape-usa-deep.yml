@@ -7,6 +7,14 @@ on:
         description: 'Comma-separated city keys (blank = all 5)'
         required: false
         default: 'miami_fl,atlanta_ga,las_vegas_nv,orlando_fl,new_york_ny'
+      max_lines:
+        description: 'Cap query lines per city (blank = full 900). Use ~30 for a smoke test.'
+        required: false
+        default: ''
+
+# Required so the merge job can push the updated master CSVs back to main.
+permissions:
+  contents: write
 
 env:
   # Native ARM64 build of gosom/google-maps-scraper (amd64 image runs under
@@ -34,7 +42,7 @@ jobs:
   scrape-city:
     needs: prepare
     runs-on: [self-hosted, linux, arm64, scraper]
-    timeout-minutes: 180
+    timeout-minutes: 320
     strategy:
       fail-fast: false
       max-parallel: 2
@@ -57,6 +65,7 @@ jobs:
       - name: Scrape city
         env:
           CITY: ${{ matrix.city }}
+          MAX_LINES: ${{ inputs.max_lines }}
         run: |
           set -euo pipefail
 
@@ -68,22 +77,29 @@ jobs:
           mkdir -p "${SHARED}/results"
 
           python3 scripts/create_usa_deep.py "${CITY}"
-          cp "city_queries/${CITY}_deep.txt" "${SHARED}/${CITY}_deep.txt"
+
+          if [ -n "${MAX_LINES}" ]; then
+            echo "Smoke test: limiting to ${MAX_LINES} query lines"
+            head -n "${MAX_LINES}" "city_queries/${CITY}_deep.txt" > "${SHARED}/${CITY}_deep.txt"
+          else
+            cp "city_queries/${CITY}_deep.txt" "${SHARED}/${CITY}_deep.txt"
+          fi
           ls -la "${SHARED}/${CITY}_deep.txt"
 
           echo "=== Running ${SCRAPER_IMAGE} for ${CITY} ==="
           docker run --rm \
+            --memory 4g \
             -v "${SHARED}:/data" \
             "${SCRAPER_IMAGE}" \
             -input "/data/${CITY}_deep.txt" \
             -results "/data/results/${CITY}_deep.csv" \
             -depth 3 \
-            -c 2 \
+            -c 4 \
             -pages-per-browser 2 \
             -zoom 16 \
             -email \
-            -exit-on-inactivity 90m
-        timeout-minutes: 110
+            -exit-on-inactivity 30m
+        timeout-minutes: 300
 
       - name: Copy results back
         if: always()
@@ -164,4 +180,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add master_leads_all.csv master_leads_with_website.csv master_leads_with_email.csv
           git commit -m "Add deep mode leads from top 5 cities [skip ci]" || echo "No changes"
-          git push || echo "Push failed"
+          git push
