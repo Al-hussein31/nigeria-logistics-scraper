@@ -10,8 +10,8 @@ on:
 
 jobs:
   scrape-city:
-    runs-on: ubuntu-latest
-    timeout-minutes: 120
+    runs-on: [self-hosted, linux, arm64, scraper]
+    timeout-minutes: 180
     strategy:
       fail-fast: false
       matrix:
