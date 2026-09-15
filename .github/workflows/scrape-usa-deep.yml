@@ -98,7 +98,7 @@ jobs:
             -pages-per-browser 2 \
             -zoom 16 \
             -email \
-            -exit-on-inactivity 30m
+            -exit-on-inactivity 15m
         timeout-minutes: 300
 
       - name: Copy results back
