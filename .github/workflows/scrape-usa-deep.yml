@@ -49,10 +49,10 @@ jobs:
     timeout-minutes: 320
     strategy:
       fail-fast: false
-      # The box is CPU-bound (2 OCPU), so parallel jobs do not increase total
-      # throughput, they only split it. Keep this at 1 to protect the
-      # production services co-hosted on the same VM.
-      max-parallel: 1
+      # Measured: two concurrent containers roughly double total throughput
+      # (2 OCPU box). Memory per container is capped at 3g so the production
+      # services co-hosted on this VM keep their headroom.
+      max-parallel: 2
       matrix:
         city: ${{ fromJSON(needs.prepare.outputs.cities) }}
 
