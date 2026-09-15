@@ -21,9 +21,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create query file, copy to shared workspace, and run scraper
+      - name: Create query file and run scraper using workspace temp
         run: |
           set -euo pipefail
+          
+          echo "=== DEBUG: Current directory ==="
+          pwd
+          
+          # Create a temp directory in the workspace (shared with host)
+          WORKSPACE_TEMP="${GITHUB_WORKSPACE}/.tmp"
+          mkdir -p "${WORKSPACE_TEMP}/city_results"
           
           echo "=== DEBUG: Current directory ==="
           pwd
@@ -34,20 +41,16 @@ jobs:
           echo "=== DEBUG: Check if query file exists ==="
           ls -la "city_queries/${CITY}_deep.txt"
           
-          echo "=== DEBUG: Copy to shared workspace temp ==="
-          cp "city_queries/${CITY}_deep.txt" "/tmp/${CITY}_deep.txt"
-          ls -la "/tmp/${CITY}_deep.txt"
+          echo "=== DEBUG: Copy to workspace temp ==="
+          cp "city_queries/${CITY}_deep.txt" "${WORKSPACE_TEMP}/${CITY}_deep.txt"
+          ls -la "${WORKSPACE_TEMP}/${CITY}_deep.txt"
           
-          mkdir -p /tmp/city_results
+          mkdir -p "${WORKSPACE_TEMP}/city_results"
           
           echo "=== DEBUG: Run scraper ==="
-          # Use the runner's workspace temp which is mounted from host
-          RUNNER_TEMP="${RUNNER_TEMP:-/tmp}"
-          cp "/tmp/${CITY}_deep.txt" "${RUNNER_TEMP}/${CITY}_deep.txt"
-          mkdir -p "${RUNNER_TEMP}/city_results"
-          
+          # Use workspace temp which is mounted from host
           docker run --rm \
-            -v "${RUNNER_TEMP}:/data" \
+            -v "${WORKSPACE_TEMP}:/data" \
             gosom/google-maps-scraper \
             -input "/data/${CITY}_deep.txt" \
             -results "/data/city_results/${CITY}_deep.csv" \
@@ -63,8 +66,8 @@ jobs:
 
       - name: Copy results back
         run: |
-          RUNNER_TEMP="${RUNNER_TEMP:-/tmp}"
-          cp "${RUNNER_TEMP}/city_results/${{ matrix.city }}_deep.csv" "city_results/${{ matrix.city }}_deep.csv"
+          WORKSPACE_TEMP="${GITHUB_WORKSPACE}/.tmp"
+          cp "${WORKSPACE_TEMP}/city_results/${{ matrix.city }}_deep.csv" "city_results/${{ matrix.city }}_deep.csv"
 
       - name: Upload results
         uses: actions/upload-artifact@v4
