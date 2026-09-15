@@ -24,12 +24,17 @@ jobs:
       - name: Create deep query file (15 queries, 60 cells)
         run: python3 scripts/create_usa_deep.py ${{ matrix.city }}
 
+      - name: Copy query file to accessible location
+        run: |
+          cp city_queries/${{ matrix.city }}_deep.txt /tmp/${{ matrix.city }}_deep.txt
+          mkdir -p /tmp/city_results
+
       - name: Run scraper with email extraction
         run: |
           docker run --rm \
-            -v "${{ github.workspace }}:/data" \
+            -v /tmp:/data \
             gosom/google-maps-scraper \
-            -input "/data/city_queries/${{ matrix.city }}_deep.txt" \
+            -input "/data/${{ matrix.city }}_deep.txt" \
             -results "/data/city_results/${{ matrix.city }}_deep.csv" \
             -depth 3 \
             -c 4 \
@@ -38,6 +43,10 @@ jobs:
             -email \
             -exit-on-inactivity 90m
         timeout-minutes: 110
+
+      - name: Copy results back
+        run: |
+          cp /tmp/city_results/${{ matrix.city }}_deep.csv city_results/${{ matrix.city }}_deep.csv
 
       - name: Upload results
         uses: actions/upload-artifact@v4
