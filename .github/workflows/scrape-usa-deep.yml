@@ -21,14 +21,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create query file, copy to /tmp, and run scraper
+      - name: Create query file, copy to shared workspace, and run scraper
         run: |
           set -euo pipefail
           
           echo "=== DEBUG: Current directory ==="
           pwd
-          echo "=== DEBUG: List workspace ==="
-          ls -la
           
           echo "=== DEBUG: Create query file ==="
           python3 scripts/create_usa_deep.py "${CITY}"
@@ -36,17 +34,20 @@ jobs:
           echo "=== DEBUG: Check if query file exists ==="
           ls -la "city_queries/${CITY}_deep.txt"
           
-          echo "=== DEBUG: Copy to /tmp ==="
+          echo "=== DEBUG: Copy to shared workspace temp ==="
           cp "city_queries/${CITY}_deep.txt" "/tmp/${CITY}_deep.txt"
-          
-          echo "=== DEBUG: Verify copy ==="
           ls -la "/tmp/${CITY}_deep.txt"
           
           mkdir -p /tmp/city_results
           
           echo "=== DEBUG: Run scraper ==="
+          # Use the runner's workspace temp which is mounted from host
+          RUNNER_TEMP="${RUNNER_TEMP:-/tmp}"
+          cp "/tmp/${CITY}_deep.txt" "${RUNNER_TEMP}/${CITY}_deep.txt"
+          mkdir -p "${RUNNER_TEMP}/city_results"
+          
           docker run --rm \
-            -v /tmp:/data \
+            -v "${RUNNER_TEMP}:/data" \
             gosom/google-maps-scraper \
             -input "/data/${CITY}_deep.txt" \
             -results "/data/city_results/${CITY}_deep.csv" \
@@ -62,7 +63,8 @@ jobs:
 
       - name: Copy results back
         run: |
-          cp /tmp/city_results/${{ matrix.city }}_deep.csv "city_results/${{ matrix.city }}_deep.csv"
+          RUNNER_TEMP="${RUNNER_TEMP:-/tmp}"
+          cp "${RUNNER_TEMP}/city_results/${{ matrix.city }}_deep.csv" "city_results/${{ matrix.city }}_deep.csv"
 
       - name: Upload results
         uses: actions/upload-artifact@v4
