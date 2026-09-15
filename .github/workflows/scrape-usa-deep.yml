@@ -1,0 +1,96 @@
+name: Scrape USA Event Planners - Deep Mode
+
+on:
+  workflow_dispatch:
+    inputs:
+      city:
+        description: 'City key (empty = all top 5)'
+        required: false
+        default: 'miami_fl,atlanta_ga,las_vegas_nv,orlando_fl,new_york_ny'
+
+jobs:
+  scrape-city:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        city: [miami_fl, atlanta_ga, las_vegas_nv, orlando_fl, new_york_ny]
+      max-parallel: 2
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create deep query file (15 queries, 60 cells)
+        run: python3 scripts/create_usa_deep.py ${{ matrix.city }}
+
+      - name: Run scraper with email extraction
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/data" \
+            gosom/google-maps-scraper \
+            -input "/data/city_queries/${{ matrix.city }}_deep.txt" \
+            -results "/data/city_results/${{ matrix.city }}_deep.csv" \
+            -depth 3 \
+            -c 4 \
+            -pages-per-browser 2 \
+            -zoom 16 \
+            -email \
+            -exit-on-inactivity 90m
+        timeout-minutes: 110
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.city }}-deep-results
+          path: city_results/${{ matrix.city }}_deep.csv
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Summary
+        if: always()
+        run: |
+          pip install pandas -q
+          python3 scripts/summarize_results.py ${{ matrix.city }}_deep
+
+  merge-results:
+    needs: scrape-city
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pandas -q
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-deep-results"
+          path: artifacts/
+          merge-multiple: true
+      - name: Merge deep results
+        run: python3 scripts/merge_deep_results.py
+      - name: Upload master (all)
+        uses: actions/upload-artifact@v4
+        with:
+          name: master-leads-all
+          path: master_leads_all.csv
+          retention-days: 30
+      - name: Upload master (with website)
+        uses: actions/upload-artifact@v4
+        with:
+          name: master-leads-with-website
+          path: master_leads_with_website.csv
+          retention-days: 30
+      - name: Upload master (with email)
+        uses: actions/upload-artifact@v4
+        with:
+          name: master-leads-with-email
+          path: master_leads_with_email.csv
+          retention-days: 30
+      - name: Commit to repo
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add master_leads_all.csv master_leads_with_website.csv master_leads_with_email.csv
+          git commit -m "Add deep mode leads from top 5 cities [skip ci]" || echo "No changes"
+          git push || echo "Push failed"
