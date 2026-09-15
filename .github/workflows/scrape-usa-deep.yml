@@ -21,32 +21,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create deep query file (15 queries, 60 cells)
-        run: python3 scripts/create_usa_deep.py ${{ matrix.city }}
-
-      - name: Copy query file to accessible location
+      - name: Create query file, copy to /tmp, and run scraper
         run: |
-          cp city_queries/${{ matrix.city }}_deep.txt /tmp/${{ matrix.city }}_deep.txt
+          set -euo pipefail
+          
+          # Create query file
+          python3 scripts/create_usa_deep.py "${CITY}"
+          
+          # Copy to /tmp for docker access
+          cp "city_queries/${CITY}_deep.txt" "/tmp/${CITY}_deep.txt"
           mkdir -p /tmp/city_results
-
-      - name: Run scraper with email extraction
-        run: |
+          
+          # Run scraper
           docker run --rm \
             -v /tmp:/data \
             gosom/google-maps-scraper \
-            -input "/data/${{ matrix.city }}_deep.txt" \
-            -results "/data/city_results/${{ matrix.city }}_deep.csv" \
+            -input "/data/${CITY}_deep.txt" \
+            -results "/data/city_results/${CITY}_deep.csv" \
             -depth 3 \
             -c 4 \
             -pages-per-browser 2 \
             -zoom 16 \
             -email \
             -exit-on-inactivity 90m
+        env:
+          CITY: ${{ matrix.city }}
         timeout-minutes: 110
 
       - name: Copy results back
         run: |
-          cp /tmp/city_results/${{ matrix.city }}_deep.csv city_results/${{ matrix.city }}_deep.csv
+          cp /tmp/city_results/${{ matrix.city }}_deep.csv "city_results/${{ matrix.city }}_deep.csv"
 
       - name: Upload results
         uses: actions/upload-artifact@v4
@@ -59,7 +63,7 @@ jobs:
       - name: Summary
         if: always()
         run: |
-          pip install pandas -q
+          pip install pandas -q --break-system-packages
           python3 scripts/summarize_results.py ${{ matrix.city }}_deep
 
   merge-results:
