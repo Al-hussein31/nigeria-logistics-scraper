@@ -3,73 +3,104 @@ name: Scrape USA Event Planners - Deep Mode
 on:
   workflow_dispatch:
     inputs:
-      city:
-        description: 'City key (empty = all top 5)'
+      cities:
+        description: 'Comma-separated city keys (blank = all 5)'
         required: false
         default: 'miami_fl,atlanta_ga,las_vegas_nv,orlando_fl,new_york_ny'
 
+env:
+  # Native ARM64 build of gosom/google-maps-scraper (amd64 image runs under
+  # qemu emulation on the OCI A1 and never completes a job).
+  SCRAPER_IMAGE: google-maps-scraper:arm64
+
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      cities: ${{ steps.parse.outputs.cities }}
+    steps:
+      - id: parse
+        env:
+          RAW: ${{ inputs.cities }}
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import os, json
+          valid = ['miami_fl', 'atlanta_ga', 'las_vegas_nv', 'orlando_fl', 'new_york_ny']
+          raw = (os.environ.get('RAW') or '').strip()
+          chosen = [c.strip() for c in raw.split(',') if c.strip() in valid]
+          print('cities=' + json.dumps(chosen or valid))
+          PY
+
   scrape-city:
+    needs: prepare
     runs-on: [self-hosted, linux, arm64, scraper]
     timeout-minutes: 180
     strategy:
       fail-fast: false
-      matrix:
-        city: [miami_fl, atlanta_ga, las_vegas_nv, orlando_fl, new_york_ny]
       max-parallel: 2
+      matrix:
+        city: ${{ fromJSON(needs.prepare.outputs.cities) }}
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create query file and run scraper using workspace temp
+      - name: Verify scraper image
+        run: |
+          docker image inspect "${SCRAPER_IMAGE}" >/dev/null 2>&1 || {
+            echo "::error::Image ${SCRAPER_IMAGE} not found on this host."
+            echo "Build it once with:"
+            echo "  git clone --depth 1 https://github.com/gosom/google-maps-scraper.git /tmp/gms-build"
+            echo "  cd /tmp/gms-build && docker build -t ${SCRAPER_IMAGE} ."
+            exit 1
+          }
+
+      - name: Scrape city
+        env:
+          CITY: ${{ matrix.city }}
         run: |
           set -euo pipefail
-          
-          echo "=== DEBUG: Current directory ==="
-          pwd
-          
-          # Create a temp directory in the workspace (shared with host)
-          WORKSPACE_TEMP="${GITHUB_WORKSPACE}/.tmp"
-          mkdir -p "${WORKSPACE_TEMP}/city_results"
-          
-          echo "=== DEBUG: Current directory ==="
-          pwd
-          
-          echo "=== DEBUG: Create query file ==="
+
+          # /tmp is bind-mounted from the host into both runner containers,
+          # so the host docker daemon can see files we write here.
+          # Namespace by run id + city so parallel jobs never collide.
+          SHARED="/tmp/leads-scrape/${GITHUB_RUN_ID}/${CITY}"
+          rm -rf "${SHARED}"
+          mkdir -p "${SHARED}/results"
+
           python3 scripts/create_usa_deep.py "${CITY}"
-          
-          echo "=== DEBUG: Check if query file exists ==="
-          ls -la "city_queries/${CITY}_deep.txt"
-          
-          echo "=== DEBUG: Copy to workspace temp ==="
-          cp "city_queries/${CITY}_deep.txt" "${WORKSPACE_TEMP}/${CITY}_deep.txt"
-          ls -la "${WORKSPACE_TEMP}/${CITY}_deep.txt"
-          
-          mkdir -p "${WORKSPACE_TEMP}/city_results"
-          
-          echo "=== DEBUG: Run scraper ==="
-          # Use workspace temp which is mounted from host
+          cp "city_queries/${CITY}_deep.txt" "${SHARED}/${CITY}_deep.txt"
+          ls -la "${SHARED}/${CITY}_deep.txt"
+
+          echo "=== Running ${SCRAPER_IMAGE} for ${CITY} ==="
           docker run --rm \
-            -v "${WORKSPACE_TEMP}:/data" \
-            gosom/google-maps-scraper \
+            -v "${SHARED}:/data" \
+            "${SCRAPER_IMAGE}" \
             -input "/data/${CITY}_deep.txt" \
-            -results "/data/city_results/${CITY}_deep.csv" \
+            -results "/data/results/${CITY}_deep.csv" \
             -depth 3 \
-            -c 4 \
+            -c 2 \
             -pages-per-browser 2 \
             -zoom 16 \
             -email \
             -exit-on-inactivity 90m
-        env:
-          CITY: ${{ matrix.city }}
         timeout-minutes: 110
 
       - name: Copy results back
+        if: always()
+        env:
+          CITY: ${{ matrix.city }}
         run: |
-          WORKSPACE_TEMP="${GITHUB_WORKSPACE}/.tmp"
-          cp "${WORKSPACE_TEMP}/city_results/${{ matrix.city }}_deep.csv" "city_results/${{ matrix.city }}_deep.csv"
+          SHARED="/tmp/leads-scrape/${GITHUB_RUN_ID}/${CITY}"
+          mkdir -p city_results
+          if [ -f "${SHARED}/results/${CITY}_deep.csv" ]; then
+            cp "${SHARED}/results/${CITY}_deep.csv" "city_results/${CITY}_deep.csv"
+            echo "Copied $(wc -l < "city_results/${CITY}_deep.csv") lines"
+          else
+            echo "::warning::No results file produced for ${CITY}"
+          fi
 
       - name: Upload results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.city }}-deep-results
@@ -79,9 +110,17 @@ jobs:
 
       - name: Summary
         if: always()
+        env:
+          CITY: ${{ matrix.city }}
         run: |
-          pip install pandas -q --break-system-packages
-          python3 scripts/summarize_results.py ${{ matrix.city }}_deep
+          pip install pandas -q --break-system-packages 2>/dev/null || pip install pandas -q 2>/dev/null || true
+          python3 scripts/summarize_results.py "${CITY}_deep" || true
+
+      - name: Cleanup shared temp
+        if: always()
+        env:
+          CITY: ${{ matrix.city }}
+        run: rm -rf "/tmp/leads-scrape/${GITHUB_RUN_ID}/${CITY}"
 
   merge-results:
     needs: scrape-city
@@ -97,7 +136,9 @@ jobs:
           path: artifacts/
           merge-multiple: true
       - name: Merge deep results
-        run: python3 scripts/merge_deep_results.py
+        run: |
+          ls -la artifacts/ || true
+          python3 scripts/merge_deep_results.py
       - name: Upload master (all)
         uses: actions/upload-artifact@v4
         with:

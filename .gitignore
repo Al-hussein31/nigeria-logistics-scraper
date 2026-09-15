@@ -1,0 +1,12 @@
+# CI artifact download dir
+artifacts/
+artifact/
+artifact*/
+
+# Python
+__pycache__/
+*.pyc
+
+# Runner scratch
+.tmp/
+city_queries/*.txt
