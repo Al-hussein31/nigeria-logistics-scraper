@@ -2,6 +2,7 @@
 """Create deep query file for USA city - 15 queries, 60 cells"""
 import sys
 import math
+from pathlib import Path
 
 CITIES = {
     'miami_fl': {'name': 'Miami, FL', 'bbox': (-80.3197600, 25.7090517, -80.1391570, 25.8557827)},
